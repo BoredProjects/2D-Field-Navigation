@@ -1,24 +1,26 @@
 import random
 
-maze = [[0 for x in range(10)]for x in range(10)]
-start = (random.randint(0,9),random.randint(0,9))
+height = 50
+length = 50
+maze = [[0 for x in range(height)]for x in range(length)]
+start = (random.randint(0,len(maze)-1),random.randint(0,len(maze)-1))
 maze[start[0]][start[1]] = 1
-end = (random.randint(0,9),random.randint(0,9))
+end = (random.randint(0,len(maze)-1),random.randint(0,len(maze)-1))
 maze[end[0]][end[1]] = -1
 
 if start == end:
-    end = (random.randint(0,9),random.randint(0,9))
+    end = (random.randint(0,len(maze)-1),random.randint(0,len(maze)-1))
 
 print("Fresh Field")
 for i in maze:
     print(i)
 
 def right(point):
-    if point[1] != 9 and maze[point[0]][point[1] + 1] != -1 and maze[point[0]][point[1] + 1] == 0:
+    if point[1] != len(maze)-1 and maze[point[0]][point[1] + 1] != -1 and maze[point[0]][point[1] + 1] == 0:
         newPoint = (point[0],point[1]+1)
         maze[newPoint[0]][newPoint[1]] = maze[point[0]][point[1]] + 1
         return newPoint
-    elif point[1] != 9 and maze[point[0]][point[1] + 1] == -1:
+    elif point[1] != len(maze)-1 and maze[point[0]][point[1] + 1] == -1:
         return -1
     else:
         return point
@@ -34,11 +36,11 @@ def up(point):
         return point
 
 def down(point):
-    if point[0] != 9 and maze[point[0]+1][point[1]] != -1 and maze[point[0] + 1][point[1]] == 0:
+    if point[0] != len(maze)-1 and maze[point[0]+1][point[1]] != -1 and maze[point[0] + 1][point[1]] == 0:
         newPoint = (point[0]+1,point[1])
         maze[newPoint[0]][newPoint[1]] = maze[point[0]][point[1]] + 1
         return newPoint
-    elif point[0] != 9 and maze[point[0]+1][point[1]] == -1:
+    elif point[0] != len(maze)-1 and maze[point[0]+1][point[1]] == -1:
         return -1
     else:
         return point
@@ -85,7 +87,7 @@ def findPath(maze):
             point = (point[0] - 1, point[1])
 
     maze.clear()
-    maze = [[0 for x in range(10)] for x in range(10)]
+    maze = [[0 for x in range(height)] for x in range(length)]
 
     spot = 1
     for i in pathway:
